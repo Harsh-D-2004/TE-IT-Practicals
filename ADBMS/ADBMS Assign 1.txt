@@ -1,0 +1,768 @@
+Microsoft Windows [Version 10.0.22631.4249]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Harsh>mongosh
+Current Mongosh Log ID: 670178de2457436555c4e49a
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.12
+Using MongoDB:          7.0.12
+Using Mongosh:          2.2.12
+mongosh 2.3.1 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-10-05T19:42:49.799+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin            180.00 KiB
+config           108.00 KiB
+express_tracker  180.00 KiB
+local             88.00 KiB
+testdb            72.00 KiB
+test> use testdb2
+switched to db testdb2
+testdb2> show collections
+
+testdb2> db.createCollection("Employee")
+
+{ ok: 1 }
+testdb2>
+
+testdb2> show collections
+Employee
+testdb2> db.Employee.insert({eid : 1 , ename : "Harsh" , designation : "Manager" , hiredate : "23/4/2010" , salary : 50000 , hobbies : ['Cricket' , 'Football'] , department : "Tech"})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('67017a932457436555c4e49b') }
+}
+testdb2> db.Employee.find().pretty()
+[
+  {
+    _id: ObjectId('67017a932457436555c4e49b'),
+    eid: 1,
+    ename: 'Harsh',
+    designation: 'Manager',
+    hiredate: '23/4/2010',
+    salary: 50000,
+    hobbies: [ 'Cricket', 'Football' ],
+    department: 'Tech'
+  }
+]
+testdb2> db.Employee.insert([{eid : 2 , ename : "Varad" , designation : "SDE1" , hiredate : "22/4/2011" , salary : 80000 , hobbies : ['Hockey' , 'Football'] , department : "Tech"} , {eid : 3 , ename : "Sudesh" , designation : "Accountant" , hiredate : "12/5/2009" , salary : 12000 , hobbies : ['Climbing' , 'Racing'] , department : 'Business'}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('67017b562457436555c4e49c'),
+    '1': ObjectId('67017b562457436555c4e49d')
+  }
+}
+testdb2> db.Employee.find().pretty()
+[
+  {
+    _id: ObjectId('67017a932457436555c4e49b'),
+    eid: 1,
+    ename: 'Harsh',
+    designation: 'Manager',
+    hiredate: '23/4/2010',
+    salary: 50000,
+    hobbies: [ 'Cricket', 'Football' ],
+    department: 'Tech'
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49c'),
+    eid: 2,
+    ename: 'Varad',
+    designation: 'SDE1',
+    hiredate: '22/4/2011',
+    salary: 80000,
+    hobbies: [ 'Hockey', 'Football' ],
+    department: 'Tech'
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    designation: 'Accountant',
+    hiredate: '12/5/2009',
+    salary: 12000,
+    hobbies: [ 'Climbing', 'Racing' ],
+    department: 'Business'
+  }
+]
+testdb2> db.Employee.insert({eid : 4 , ename : "Gandhi" , designation : "Peon" , hiredate : "3/6/2011" , salary : 90000 , hobbies : ['Swimming' , 'Football'] , department : "Business"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('67017b9a2457436555c4e49e') }
+}
+testdb2> db.Employee.insert({eid : 5 , ename : "Amir" , designation : "Head" , hiredate : "30/3/2011" , salary : 93400 , hobbies : ['Swimming' , 'Golf'] , department : "Marketing"})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('67017bdf2457436555c4e49f') }
+}
+testdb2> db.Employee.find().pretty()
+[
+  {
+    _id: ObjectId('67017a932457436555c4e49b'),
+    eid: 1,
+    ename: 'Harsh',
+    designation: 'Manager',
+    hiredate: '23/4/2010',
+    salary: 50000,
+    hobbies: [ 'Cricket', 'Football' ],
+    department: 'Tech'
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49c'),
+    eid: 2,
+    ename: 'Varad',
+    designation: 'SDE1',
+    hiredate: '22/4/2011',
+    salary: 80000,
+    hobbies: [ 'Hockey', 'Football' ],
+    department: 'Tech'
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    designation: 'Accountant',
+    hiredate: '12/5/2009',
+    salary: 12000,
+    hobbies: [ 'Climbing', 'Racing' ],
+    department: 'Business'
+  },
+  {
+    _id: ObjectId('67017b9a2457436555c4e49e'),
+    eid: 4,
+    ename: 'Gandhi',
+    designation: 'Peon',
+    hiredate: '3/6/2011',
+    salary: 90000,
+    hobbies: [ 'Swimming', 'Football' ],
+    department: 'Business'
+  },
+  {
+    _id: ObjectId('67017bdf2457436555c4e49f'),
+    eid: 5,
+    ename: 'Amir',
+    designation: 'Head',
+    hiredate: '30/3/2011',
+    salary: 93400,
+    hobbies: [ 'Swimming', 'Golf' ],
+    department: 'Marketing'
+  }
+]
+testdb2> db.Employee.find({designation : "Head"}).pretty()
+[
+  {
+    _id: ObjectId('67017bdf2457436555c4e49f'),
+    eid: 5,
+    ename: 'Amir',
+    designation: 'Head',
+    hiredate: '30/3/2011',
+    salary: 93400,
+    hobbies: [ 'Swimming', 'Golf' ],
+    department: 'Marketing'
+  }
+]
+testdb2> db.Employee.find($and[{designation : "Head"} , {department : "Marketing"}]).pretty()
+ReferenceError: $and is not defined
+testdb2> db.Employee.find({$and[{designation : "Head"} , {department : "Marketing"}]}).pretty()
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:22)
+
+> 1 | db.Employee.find({$and[{designation : "Head"} , {department : "Marketing"}]}).pretty()
+    |                       ^
+  2 |
+
+testdb2> db.Employee.find({$and : [{designation : "Head"} , {department : "Marketing"}]}).pretty()
+[
+  {
+    _id: ObjectId('67017bdf2457436555c4e49f'),
+    eid: 5,
+    ename: 'Amir',
+    designation: 'Head',
+    hiredate: '30/3/2011',
+    salary: 93400,
+    hobbies: [ 'Swimming', 'Golf' ],
+    department: 'Marketing'
+  }
+]
+testdb2> db.Employee.find({} , {eid : 1 , ename : 1 , salary : 1}).pretty()
+[
+  {
+    _id: ObjectId('67017a932457436555c4e49b'),
+    eid: 1,
+    ename: 'Harsh',
+    salary: 50000
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49c'),
+    eid: 2,
+    ename: 'Varad',
+    salary: 80000
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    salary: 12000
+  },
+  {
+    _id: ObjectId('67017b9a2457436555c4e49e'),
+    eid: 4,
+    ename: 'Gandhi',
+    salary: 90000
+  },
+  {
+    _id: ObjectId('67017bdf2457436555c4e49f'),
+    eid: 5,
+    ename: 'Amir',
+    salary: 93400
+  }
+]
+testdb2> db.Employee.find({designation : {$not : {$eq : "Manager"}}})
+[
+  {
+    _id: ObjectId('67017b562457436555c4e49c'),
+    eid: 2,
+    ename: 'Varad',
+    designation: 'SDE1',
+    hiredate: '22/4/2011',
+    salary: 80000,
+    hobbies: [ 'Hockey', 'Football' ],
+    department: 'Tech'
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    designation: 'Accountant',
+    hiredate: '12/5/2009',
+    salary: 12000,
+    hobbies: [ 'Climbing', 'Racing' ],
+    department: 'Business'
+  },
+  {
+    _id: ObjectId('67017b9a2457436555c4e49e'),
+    eid: 4,
+    ename: 'Gandhi',
+    designation: 'Peon',
+    hiredate: '3/6/2011',
+    salary: 90000,
+    hobbies: [ 'Swimming', 'Football' ],
+    department: 'Business'
+  },
+  {
+    _id: ObjectId('67017bdf2457436555c4e49f'),
+    eid: 5,
+    ename: 'Amir',
+    designation: 'Head',
+    hiredate: '30/3/2011',
+    salary: 93400,
+    hobbies: [ 'Swimming', 'Golf' ],
+    department: 'Marketing'
+  }
+]
+testdb2> db.Employee.find({$or : [{eid : 1} , {eid : 3}]})
+[
+  {
+    _id: ObjectId('67017a932457436555c4e49b'),
+    eid: 1,
+    ename: 'Harsh',
+    designation: 'Manager',
+    hiredate: '23/4/2010',
+    salary: 50000,
+    hobbies: [ 'Cricket', 'Football' ],
+    department: 'Tech'
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    designation: 'Accountant',
+    hiredate: '12/5/2009',
+    salary: 12000,
+    hobbies: [ 'Climbing', 'Racing' ],
+    department: 'Business'
+  }
+]
+testdb2> db.collection.find({"hobbies.2" : "Golf"}).pretty()
+
+testdb2> db.collection.find({"hobbies.1" : "Golf"}).pretty()
+
+testdb2> db.Employee.find({"hobbies.1" : "Golf"}).pretty()
+[
+  {
+    _id: ObjectId('67017bdf2457436555c4e49f'),
+    eid: 5,
+    ename: 'Amir',
+    designation: 'Head',
+    hiredate: '30/3/2011',
+    salary: 93400,
+    hobbies: [ 'Swimming', 'Golf' ],
+    department: 'Marketing'
+  }
+]
+testdb2> db.Employee.find("designation")
+MongoInvalidArgumentError: Query filter must be a plain object or ObjectId
+testdb2> db.Employee.distinct("designation")
+[ 'Accountant', 'Head', 'Manager', 'Peon', 'SDE1' ]
+testdb2> db.collection.find({salary : {$lte : 10000}}).pretty()
+
+testdb2> db.Employee.find({salary : {$lte : 10000}}).pretty()
+
+testdb2> db.Employee.find({salary : {$lte : 15000}}).pretty()
+[
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    designation: 'Accountant',
+    hiredate: '12/5/2009',
+    salary: 12000,
+    hobbies: [ 'Climbing', 'Racing' ],
+    department: 'Business'
+  }
+]
+testdb2> db.Employee.find({salary : {$lte : 15000}} , {eid : 1 , ename : 1 , salary : 1}).pretty()
+[
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    salary: 12000
+  }
+]
+testdb2> db.Employee.find({department : "Marketing"} , {ename : 1 , designation : 1}).pretty()
+[
+  {
+    _id: ObjectId('67017bdf2457436555c4e49f'),
+    ename: 'Amir',
+    designation: 'Head'
+  }
+]
+testdb2> db.Employee.find({ename : {$regex : "/^A/"}}).pretty()
+
+testdb2> db.Employee.find({ename : {$regex : /^A/}}).pretty()
+[
+  {
+    _id: ObjectId('67017bdf2457436555c4e49f'),
+    eid: 5,
+    ename: 'Amir',
+    designation: 'Head',
+    hiredate: '30/3/2011',
+    salary: 93400,
+    hobbies: [ 'Swimming', 'Golf' ],
+    department: 'Marketing'
+  }
+]
+testdb2> db.Employee.find({ename : {$regex : /sh/}}).pretty()
+[
+  {
+    _id: ObjectId('67017a932457436555c4e49b'),
+    eid: 1,
+    ename: 'Harsh',
+    designation: 'Manager',
+    hiredate: '23/4/2010',
+    salary: 50000,
+    hobbies: [ 'Cricket', 'Football' ],
+    department: 'Tech'
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    designation: 'Accountant',
+    hiredate: '12/5/2009',
+    salary: 12000,
+    hobbies: [ 'Climbing', 'Racing' ],
+    department: 'Business'
+  }
+]
+testdb2> db.Employee.find({$or : [{ename : {$regex : /^S/} , {ename : {$regex : /s$/}}}]}).pretty()
+Uncaught:
+SyntaxError: Unexpected token (1:52)
+
+> 1 | db.Employee.find({$or : [{ename : {$regex : /^S/} , {ename : {$regex : /s$/}}}]}).pretty()
+    |                                                     ^
+  2 |
+
+testdb2> db.Employee.find({$or : [{ename : {$regex : /^S/} , {ename : {$regex : /s$/db.Employee.find({}}}]}).pretty()
+Uncaught:
+SyntaxError: Unexpected token (1:52)
+
+> 1 | db.Employee.find({$or : [{ename : {$regex : /^S/} , {ename : {$regex : /s$/db.Employee.find({}}}]}).pretty()
+    |                                                     ^
+  2 |
+
+testdb2>   $or: [
+...     { ename: { $regex: /^S/ } }, // Starts with 'S'
+...     { ename: { $regex: /s$/ } }  // Ends with 's'
+...   ]
+[ { ename: { '$regex': /^S/ } }, { ename: { '$regex': /s$/ } } ]
+testdb2> }).pretty()
+Uncaught:
+SyntaxError: Unexpected token (1:0)
+
+> 1 | }).pretty()
+    | ^
+  2 |
+
+testdb2> db.Employee.find({})
+[
+  {
+    _id: ObjectId('67017a932457436555c4e49b'),
+    eid: 1,
+    ename: 'Harsh',
+    designation: 'Manager',
+    hiredate: '23/4/2010',
+    salary: 50000,
+    hobbies: [ 'Cricket', 'Football' ],
+    department: 'Tech'
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49c'),
+    eid: 2,
+    ename: 'Varad',
+    designation: 'SDE1',
+    hiredate: '22/4/2011',
+    salary: 80000,
+    hobbies: [ 'Hockey', 'Football' ],
+    department: 'Tech'
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    designation: 'Accountant',
+    hiredate: '12/5/2009',
+    salary: 12000,
+    hobbies: [ 'Climbing', 'Racing' ],
+    department: 'Business'
+  },
+  {
+    _id: ObjectId('67017b9a2457436555c4e49e'),
+    eid: 4,
+    ename: 'Gandhi',
+    designation: 'Peon',
+    hiredate: '3/6/2011',
+    salary: 90000,
+    hobbies: [ 'Swimming', 'Football' ],
+    department: 'Business'
+  },
+  {
+    _id: ObjectId('67017bdf2457436555c4e49f'),
+    eid: 5,
+    ename: 'Amir',
+    designation: 'Head',
+    hiredate: '30/3/2011',
+    salary: 93400,
+    hobbies: [ 'Swimming', 'Golf' ],
+    department: 'Marketing'
+  }
+]
+testdb2> db.Employee.find({})
+[
+  {
+    _id: ObjectId('67017a932457436555c4e49b'),
+    eid: 1,
+    ename: 'Harsh',
+    designation: 'Manager',
+    hiredate: '23/4/2010',
+    salary: 50000,
+    hobbies: [ 'Cricket', 'Football' ],
+    department: 'Tech'
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49c'),
+    eid: 2,
+    ename: 'Varad',
+    designation: 'SDE1',
+    hiredate: '22/4/2011',
+    salary: 80000,
+    hobbies: [ 'Hockey', 'Football' ],
+    department: 'Tech'
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    designation: 'Accountant',
+    hiredate: '12/5/2009',
+    salary: 12000,
+    hobbies: [ 'Climbing', 'Racing' ],
+    department: 'Business'
+  },
+  {
+    _id: ObjectId('67017b9a2457436555c4e49e'),
+    eid: 4,
+    ename: 'Gandhi',
+    designation: 'Peon',
+    hiredate: '3/6/2011',
+    salary: 90000,
+    hobbies: [ 'Swimming', 'Football' ],
+    department: 'Business'
+  },
+  {
+    _id: ObjectId('67017bdf2457436555c4e49f'),
+    eid: 5,
+    ename: 'Amir',
+    designation: 'Head',
+    hiredate: '30/3/2011',
+    salary: 93400,
+    hobbies: [ 'Swimming', 'Golf' ],
+    department: 'Marketing'
+  }
+]
+testdb2> db.Employee.find({db.Employee.find({})
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:20)
+
+> 1 | db.Employee.find({db.Employee.find({})
+    |                     ^
+  2 |
+
+testdb2>   $or: [
+...     { ename: { $regex: /^S/ } }, // Starts with 'S'
+...     { ename: { $regex: /s$/ } }  // Ends with 's'
+...   ]
+[ { ename: { '$regex': /^S/ } }, { ename: { '$regex': /s$/ } } ]
+testdb2> }).pretty()
+Uncaught:
+SyntaxError: Unexpected token (1:0)
+
+> 1 | }).pretty()
+    | ^
+  2 |
+
+testdb2> db.Employee.find({
+...   $or: [
+...     { ename: { $regex: /^S/ } },
+...     { ename: { $regex: /s$/ } }
+...   ]
+... }).pretty()
+[
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    designation: 'Accountant',
+    hiredate: '12/5/2009',
+    salary: 12000,
+    hobbies: [ 'Climbing', 'Racing' ],
+    department: 'Business'
+  }
+]
+
+
+Microsoft Windows [Version 10.0.22631.4249]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Harsh>mongosh
+Current Mongosh Log ID: 670203e0fbdf40c9d4c4e49a
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.12
+Using MongoDB:          7.0.12
+Using Mongosh:          2.2.12
+mongosh 2.3.1 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-10-05T19:42:49.799+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin            180.00 KiB
+config            84.00 KiB
+express_tracker  180.00 KiB
+local             88.00 KiB
+testdb            72.00 KiB
+testdb2           72.00 KiB
+test> use testdb2
+switched to db testdb2
+testdb2> show collections
+Employee
+testdb2> db.Employee.find({designation : {$not : {$eq : "Head"}}})
+[
+  {
+    _id: ObjectId('67017a932457436555c4e49b'),
+    eid: 1,
+    ename: 'Harsh',
+    designation: 'Manager',
+    hiredate: '23/4/2010',
+    salary: 50000,
+    hobbies: [ 'Cricket', 'Football' ],
+    department: 'Tech'
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49c'),
+    eid: 2,
+    ename: 'Varad',
+    designation: 'SDE1',
+    hiredate: '22/4/2011',
+    salary: 80000,
+    hobbies: [ 'Hockey', 'Football' ],
+    department: 'Tech'
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    designation: 'Accountant',
+    hiredate: '12/5/2009',
+    salary: 12000,
+    hobbies: [ 'Climbing', 'Racing' ],
+    department: 'Business'
+  },
+  {
+    _id: ObjectId('67017b9a2457436555c4e49e'),
+    eid: 4,
+    ename: 'Gandhi',
+    designation: 'Peon',
+    hiredate: '3/6/2011',
+    salary: 90000,
+    hobbies: [ 'Swimming', 'Football' ],
+    department: 'Business'
+  }
+]
+testdb2> db.Employees.countDocuments({department : "Tech"})
+0
+testdb2> db.Employee.countDocuments({department : "Tech"})
+2
+testdb2> db.Employee.distinct("designation").length
+5
+testdb2> db.Employee.distinct("designation")
+[ 'Accountant', 'Head', 'Manager', 'Peon', 'SDE1' ]
+testdb2> db.Employee.find({salary : {$gte : 10000 , $lte : 20000}})
+[
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    designation: 'Accountant',
+    hiredate: '12/5/2009',
+    salary: 12000,
+    hobbies: [ 'Climbing', 'Racing' ],
+    department: 'Business'
+  }
+]
+testdb2> db.Employee.find({salary : {$gte : 10000 , $lte : 20000}} , {eid : 1 , ename : 1 , salary : 1})
+[
+  {
+    _id: ObjectId('67017b562457436555c4e49d'),
+    eid: 3,
+    ename: 'Sudesh',
+    salary: 12000
+  }
+]
+testdb2> db.Employee.find({salary : {$gte : 15000}} , {eid : 1 , ename : 1 , salary : 1})
+[
+  {
+    _id: ObjectId('67017a932457436555c4e49b'),
+    eid: 1,
+    ename: 'Harsh',
+    salary: 50000
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49c'),
+    eid: 2,
+    ename: 'Varad',
+    salary: 80000
+  },
+  {
+    _id: ObjectId('67017b9a2457436555c4e49e'),
+    eid: 4,
+    ename: 'Gandhi',
+    salary: 90000
+  },
+  {
+    _id: ObjectId('67017bdf2457436555c4e49f'),
+    eid: 5,
+    ename: 'Amir',
+    salary: 93400
+  }
+]
+testdb2> db.Employee.find({$and : [{salary : {$gte : 15000}} , {department : "Tech"}]} , {eid : 1 , ename : 1 , salary : 1})
+[
+  {
+    _id: ObjectId('67017a932457436555c4e49b'),
+    eid: 1,
+    ename: 'Harsh',
+    salary: 50000
+  },
+  {
+    _id: ObjectId('67017b562457436555c4e49c'),
+    eid: 2,
+    ename: 'Varad',
+    salary: 80000
+  }
+]
+testdb2> db.Employee.find({$and : [{hobbies : "Swimming"} , {hobbies : "Football"}]})
+[
+  {
+    _id: ObjectId('67017b9a2457436555c4e49e'),
+    eid: 4,
+    ename: 'Gandhi',
+    designation: 'Peon',
+    hiredate: '3/6/2011',
+    salary: 90000,
+    hobbies: [ 'Swimming', 'Football' ],
+    department: 'Business'
+  }
+]
+testdb2> db.Employee.find({"hobbies.1"})
+Uncaught:
+SyntaxError: Unexpected token (1:29)
+
+> 1 | db.Employee.find({"hobbies.1"})
+    |                              ^
+  2 |
+
+testdb2> db.Employee.aggregate([{$project : {firstHobby : {$arrayElemAt : ["$hobbies" : 0]}}}])
+Uncaught:
+SyntaxError: Unexpected token, expected "," (1:77)
+
+> 1 | db.Employee.aggregate([{$project : {firstHobby : {$arrayElemAt : ["$hobbies" : 0]}}}])
+    |                                                                              ^
+  2 |
+
+testdb2> db.Employee.aggregate([{$project : {firstHobby : {$arrayElemAt : ["$hobbies" , 0]}}}])
+[
+  { _id: ObjectId('67017a932457436555c4e49b'), firstHobby: 'Cricket' },
+  { _id: ObjectId('67017b562457436555c4e49c'), firstHobby: 'Hockey' },
+  { _id: ObjectId('67017b562457436555c4e49d'), firstHobby: 'Climbing' },
+  { _id: ObjectId('67017b9a2457436555c4e49e'), firstHobby: 'Swimming' },
+  { _id: ObjectId('67017bdf2457436555c4e49f'), firstHobby: 'Swimming' }
+]
+testdb2> db.Employee.find([{$project : {hobbiesCount : {$size : "hobbies"}} , {$match : {hobbiesCount : 2}}}])
+Uncaught:
+SyntaxError: Unexpected token (1:69)
+
+> 1 | db.Employee.find([{$project : {hobbiesCount : {$size : "hobbies"}} , {$match : {hobbiesCount : 2}}}])
+    |                                                                      ^
+  2 |
+
+testdb2> db.Employee.aggregate([{$project : {hobbiesCount : {$size : "hobbies"}} , {$match : {hobbiesCount : 2}}}])
+Uncaught:
+SyntaxError: Unexpected token (1:74)
+
+> 1 | db.Employee.aggregate([{$project : {hobbiesCount : {$size : "hobbies"}} , {$match : {hobbiesCount : 2}}}])
+    |                                                                           ^
+  2 |
+
+testdb2> db.Employee.aggregate([{$project : {hobbiesCount : {$size : "hobbies"}}} , {$match : {hobbiesCount : 2}}])
+MongoServerError[Location17124]: Failed to optimize pipeline :: caused by :: The argument to $size must be an array, but was of type: string
+testdb2> db.Employee.aggregate([{$project : {hobbiesCount : {$size : "$hobbies"}}} , {$match : {hobbiesCount : 2}}])
+[
+  { _id: ObjectId('67017a932457436555c4e49b'), hobbiesCount: 2 },
+  { _id: ObjectId('67017b562457436555c4e49c'), hobbiesCount: 2 },
+  { _id: ObjectId('67017b562457436555c4e49d'), hobbiesCount: 2 },
+  { _id: ObjectId('67017b9a2457436555c4e49e'), hobbiesCount: 2 },
+  { _id: ObjectId('67017bdf2457436555c4e49f'), hobbiesCount: 2 }
+]
+testdb2>

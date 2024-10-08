@@ -1,0 +1,115 @@
+Microsoft Windows [Version 10.0.22631.4249]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Harsh>mongosh
+Current Mongosh Log ID: 6704a7161dfc87a439c4e49a
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.12
+Using MongoDB:          7.0.12
+Using Mongosh:          2.2.12
+mongosh 2.3.1 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-10-05T19:42:49.799+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin            180.00 KiB
+config            84.00 KiB
+express_tracker  180.00 KiB
+local             88.00 KiB
+testdb            72.00 KiB
+testdb2           72.00 KiB
+test> use testdb2
+switched to db testdb2
+testdb2> db.createCollection('customer')
+{ ok: 1 }
+testdb2> show collections
+customer
+Employee
+testdb2> db.customer.insert({custId : 'A123' , Amount : 500 , status : 'A'})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6704a7971dfc87a439c4e49b') }
+}
+testdb2> db.customer.find().pretty()
+[
+  {
+    _id: ObjectId('6704a7971dfc87a439c4e49b'),
+    custId: 'A123',
+    Amount: 500,
+    status: 'A'
+  }
+]
+testdb2> db.customer.insert({custId : 'A123' , Amount : 250 , status : 'A'})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6704a7be1dfc87a439c4e49c') }
+}
+testdb2> db.customer.insert({custId : 'B212' , Amount : 200 , status : 'A'})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6704a7d21dfc87a439c4e49d') }
+}
+testdb2> db.customer.insert({custId : 'A123' , Amount : 300 , status : 'D'})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6704a7e71dfc87a439c4e49e') }
+}
+testdb2> db.customer.find().pretty()
+[
+  {
+    _id: ObjectId('6704a7971dfc87a439c4e49b'),
+    custId: 'A123',
+    Amount: 500,
+    status: 'A'
+  },
+  {
+    _id: ObjectId('6704a7be1dfc87a439c4e49c'),
+    custId: 'A123',
+    Amount: 250,
+    status: 'A'
+  },
+  {
+    _id: ObjectId('6704a7d21dfc87a439c4e49d'),
+    custId: 'B212',
+    Amount: 200,
+    status: 'A'
+  },
+  {
+    _id: ObjectId('6704a7e71dfc87a439c4e49e'),
+    custId: 'A123',
+    Amount: 300,
+    status: 'D'
+  }
+]
+testdb2> db.customer.aggregate([{$group : {_id : "$custId" , totalAmount : {"$sum" : "$Amount"}}}])
+[
+  { _id: 'A123', totalAmount: 1050 },
+  { _id: 'B212', totalAmount: 200 }
+]
+testdb2> db.customer.aggregate([{$group : {_id : null , totalAmount : {"$sum" : "$Amount"}}}])
+[ { _id: null, totalAmount: 1250 } ]
+testdb2> db.customer.aggregate([{$match : {status : 'A'}} , {$group : {_id : "$custId" , totalAmount : {"$sum" : "$Amount"}}}])
+[
+  { _id: 'A123', totalAmount: 750 },
+  { _id: 'B212', totalAmount: 200 }
+]
+testdb2> db.customer.aggregate([{$match : {status : 'A'}} , {$group : {_id : null , totalAmount : {"$sum" : "$Amount"}}}])
+[ { _id: null, totalAmount: 950 } ]
+testdb2> db.customer.aggregate([{$match : {status : 'A'}} , {$group : {_id : "$custId" , minAmount : {"$min" : "$Amount"}}}])
+[ { _id: 'A123', minAmount: 250 }, { _id: 'B212', minAmount: 200 } ]
+testdb2> db.customer.aggregate([{$match : {status : 'A'}} , {$group : {_id : null , minAmount : {"$min" : "$Amount"}}}])
+
+[ { _id: null, minAmount: 200 } ]
+testdb2> db.customer.aggregate([{$match : {status : 'A'}} , {$group : {_id : null , minAmount : {"$max" : "$Amount"}}}])
+
+[ { _id: null, minAmount: 500 } ]
+testdb2> db.customer.aggregate([{$match : {status : 'A'}} , {$group : {_id : "$custId" , maxAmount : {"$max" : "$Amount"}}}])
+[ { _id: 'A123', maxAmount: 500 }, { _id: 'B212', maxAmount: 200 } ]
+testdb2> db.customer.aggregate([{$match : {status : 'A'}} , {$group : {_id : "$custId" , avgAmount : {"$avg" : "$Amount"}}}])
+[ { _id: 'A123', avgAmount: 375 }, { _id: 'B212', avgAmount: 200 } ]
+testdb2>

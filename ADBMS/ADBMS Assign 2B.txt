@@ -1,0 +1,111 @@
+testdb2> db.customer.createIndex({custId : 1})
+custId_1
+testdb2> db.customer.getIndex()
+TypeError: db.customer.getIndex is not a function
+testdb2> db.customer.getIndexes()
+[
+  { v: 2, key: { _id: 1 }, name: '_id_' },
+  { v: 2, key: { custId: 1 }, name: 'custId_1' }
+]
+testdb2> db.customer.find({custId : "A123"}).explain("executionStats")
+{
+  explainVersion: '1',
+  queryPlanner: {
+    namespace: 'testdb2.customer',
+    indexFilterSet: false,
+    parsedQuery: { custId: { '$eq': 'A123' } },
+    queryHash: '9DE53502',
+    planCacheKey: 'D5DA42A1',
+    maxIndexedOrSolutionsReached: false,
+    maxIndexedAndSolutionsReached: false,
+    maxScansToExplodeReached: false,
+    winningPlan: {
+      stage: 'FETCH',
+      inputStage: {
+        stage: 'IXSCAN',
+        keyPattern: { custId: 1 },
+        indexName: 'custId_1',
+        isMultiKey: false,
+        multiKeyPaths: { custId: [] },
+        isUnique: false,
+        isSparse: false,
+        isPartial: false,
+        indexVersion: 2,
+        direction: 'forward',
+        indexBounds: { custId: [ '["A123", "A123"]' ] }
+      }
+    },
+    rejectedPlans: []
+  },
+  executionStats: {
+    executionSuccess: true,
+    nReturned: 3,
+    executionTimeMillis: 8,
+    totalKeysExamined: 3,
+    totalDocsExamined: 3,
+    executionStages: {
+      stage: 'FETCH',
+      nReturned: 3,
+      executionTimeMillisEstimate: 0,
+      works: 4,
+      advanced: 3,
+      needTime: 0,
+      needYield: 0,
+      saveState: 0,
+      restoreState: 0,
+      isEOF: 1,
+      docsExamined: 3,
+      alreadyHasObj: 0,
+      inputStage: {
+        stage: 'IXSCAN',
+        nReturned: 3,
+        executionTimeMillisEstimate: 0,
+        works: 4,
+        advanced: 3,
+        needTime: 0,
+        needYield: 0,
+        saveState: 0,
+        restoreState: 0,
+        isEOF: 1,
+        keyPattern: { custId: 1 },
+        indexName: 'custId_1',
+        isMultiKey: false,
+        multiKeyPaths: { custId: [] },
+        isUnique: false,
+        isSparse: false,
+        isPartial: false,
+        indexVersion: 2,
+        direction: 'forward',
+        indexBounds: { custId: [ '["A123", "A123"]' ] },
+        keysExamined: 3,
+        seeks: 1,
+        dupsTested: 0,
+        dupsDropped: 0
+      }
+    }
+  },
+  command: { find: 'customer', filter: { custId: 'A123' }, '$db': 'testdb2' },
+  serverInfo: {
+    host: 'DESKTOP-593P7HM',
+    port: 27017,
+    version: '7.0.12',
+    gitVersion: 'b6513ce0781db6818e24619e8a461eae90bc94fc'
+  },
+  serverParameters: {
+    internalQueryFacetBufferSizeBytes: 104857600,
+    internalQueryFacetMaxOutputDocSizeBytes: 104857600,
+    internalLookupStageIntermediateDocumentMaxSizeBytes: 104857600,
+    internalDocumentSourceGroupMaxMemoryBytes: 104857600,
+    internalQueryMaxBlockingSortMemoryUsageBytes: 104857600,
+    internalQueryProhibitBlockingMergeOnMongoS: 0,
+    internalQueryMaxAddToSetBytes: 104857600,
+    internalDocumentSourceSetWindowFieldsMaxMemoryBytes: 104857600,
+    internalQueryFrameworkControl: 'trySbeRestricted'
+  },
+  ok: 1
+}
+testdb2> db.customer.dropIndex({custId : 1})
+{ nIndexesWas: 2, ok: 1 }
+testdb2> db.customer.getIndexes()
+[ { v: 2, key: { _id: 1 }, name: '_id_' } ]
+testdb2>
