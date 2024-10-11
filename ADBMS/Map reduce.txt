@@ -1,0 +1,259 @@
+Microsoft Windows [Version 10.0.22631.4317]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\Harsh>mongosh
+Current Mongosh Log ID: 6706b946747aa35644c4e49a
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.2.12
+Using MongoDB:          7.0.12
+Using Mongosh:          2.2.12
+mongosh 2.3.1 is available for download: https://www.mongodb.com/try/download/shell
+
+For mongosh info see: https://docs.mongodb.com/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2024-10-09T02:24:51.900+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+------
+
+test> show dbs
+admin            180.00 KiB
+config           108.00 KiB
+express_tracker  180.00 KiB
+local             88.00 KiB
+testdb            72.00 KiB
+testdb2          144.00 KiB
+test> use testdb2
+switched to db testdb2
+testdb2> show collections
+customer
+Employee
+testdb2> db.customer.find().pretty()
+[
+  {
+    _id: ObjectId('6704a7971dfc87a439c4e49b'),
+    custId: 'A123',
+    Amount: 500,
+    status: 'A'
+  },
+  {
+    _id: ObjectId('6704a7be1dfc87a439c4e49c'),
+    custId: 'A123',
+    Amount: 250,
+    status: 'A'
+  },
+  {
+    _id: ObjectId('6704a7d21dfc87a439c4e49d'),
+    custId: 'B212',
+    Amount: 200,
+    status: 'A'
+  },
+  {
+    _id: ObjectId('6704a7e71dfc87a439c4e49e'),
+    custId: 'A123',
+    Amount: 300,
+    status: 'D'
+  }
+]
+testdb2> db.marks.insert({name : "Midhu" , subject : "science" , marks : 68})
+DeprecationWarning: Collection.insert() is deprecated. Use insertOne, insertMany, or bulkWrite.
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6706b9a1747aa35644c4e49b') }
+}
+testdb2> show collections
+customer
+Employee
+marks
+testdb2> db.marks.insert({name : "Midhu" , subject : "maths" , marks : 98})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6706b9c1747aa35644c4e49c') }
+}
+testdb2> db.marks.insert({name : "Midhu" , subject : "sports" , marks : 77})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6706b9d2747aa35644c4e49d') }
+}
+testdb2> db.marks.insert({name : "Akhil" , subject : "science" , marks : 67})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6706b9f3747aa35644c4e49e') }
+}
+testdb2> db.marks.insert({name : "Akhil" , subject : "maths" , marks : 87})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6706ba02747aa35644c4e49f') }
+}
+testdb2> db.marks.insert({name : "Akhil" , subject : "sports" , marks : 89})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6706ba0d747aa35644c4e4a0') }
+}
+testdb2> db.marks.insert({name : "Anish" , subject : "science" , marks : 67})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6706ba26747aa35644c4e4a1') }
+}
+testdb2> db.marks.insert({name : "Anish" , subject : "maths" , marks : 78})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6706ba33747aa35644c4e4a2') }
+}
+testdb2> db.marks.insert({name : "Anish" , subject : "sports" , marks : 90})
+{
+  acknowledged: true,
+  insertedIds: { '0': ObjectId('6706ba3d747aa35644c4e4a3') }
+}
+testdb2> db.marks.find().pretty()
+[
+  {
+    _id: ObjectId('6706b9a1747aa35644c4e49b'),
+    name: 'Midhu',
+    subject: 'science',
+    marks: 68
+  },
+  {
+    _id: ObjectId('6706b9c1747aa35644c4e49c'),
+    name: 'Midhu',
+    subject: 'maths',
+    marks: 98
+  },
+  {
+    _id: ObjectId('6706b9d2747aa35644c4e49d'),
+    name: 'Midhu',
+    subject: 'sports',
+    marks: 77
+  },
+  {
+    _id: ObjectId('6706b9f3747aa35644c4e49e'),
+    name: 'Akhil',
+    subject: 'science',
+    marks: 67
+  },
+  {
+    _id: ObjectId('6706ba02747aa35644c4e49f'),
+    name: 'Akhil',
+    subject: 'maths',
+    marks: 87
+  },
+  {
+    _id: ObjectId('6706ba0d747aa35644c4e4a0'),
+    name: 'Akhil',
+    subject: 'sports',
+    marks: 89
+  },
+  {
+    _id: ObjectId('6706ba26747aa35644c4e4a1'),
+    name: 'Anish',
+    subject: 'science',
+    marks: 67
+  },
+  {
+    _id: ObjectId('6706ba33747aa35644c4e4a2'),
+    name: 'Anish',
+    subject: 'maths',
+    marks: 78
+  },
+  {
+    _id: ObjectId('6706ba3d747aa35644c4e4a3'),
+    name: 'Anish',
+    subject: 'sports',
+    marks: 90
+  }
+]
+testdb2> var map = function(){
+...     emit(this.name , this.marks);
+... };
+
+testdb2> var reduce = function(key , values){
+...     return Array.sum(values);
+... };
+
+testdb2> db.marks.mapReduce(map , reduce  , {out : "totla_marks_students"})
+DeprecationWarning: Collection.mapReduce() is deprecated. Use an aggregation instead.
+See https://docs.mongodb.com/manual/core/map-reduce for details.
+{ result: 'totla_marks_students', ok: 1 }
+testdb2> show collections
+customer
+Employee
+marks
+totla_marks_students
+testdb2> db.totla_marks_students.find().pretty()
+[
+  { _id: 'Akhil', value: 243 },
+  { _id: 'Anish', value: 235 },
+  { _id: 'Midhu', value: 243 }
+]
+testdb2>
+
+testdb2> var map = function(){
+...     emit(this.name , {marks : this.marks , count : 1});
+... };
+
+testdb2> var reduce = function(key , values){
+...     var reducedVal = {marks : 0 , count : 0};
+...     values.forEach(function(value){
+...             reducedVal.marks += value.marks;
+...             reducedVal.count += value.count;
+...     });
+...     return reducedVal
+... };
+
+testdb2> var avgFunc = function(key , reducedVal){
+...     reducedVal.avg = reducedVal.marks / reducedVal.count;
+...     return reducedVal;
+... };
+
+testdb2> db.marks.mapReduce(map , reduce , {out : "avg_marks" , finalize : avgFunc})
+{ result: 'avg_marks', ok: 1 }
+testdb2> db.avg_marks.find().pretty()
+[
+  { _id: 'Akhil', value: { marks: 243, count: 3, avg: 81 } },
+  {
+    _id: 'Anish',
+    value: { marks: 235, count: 3, avg: 78.33333333333333 }
+  },
+  { _id: 'Midhu', value: { marks: 243, count: 3, avg: 81 } }
+]
+testdb2> var map = function () { emit("total", { marks: this.marks, count: 1 }); };
+
+testdb2> db.marks.mapReduce(map , reduce , {out : "marks_all" , finalize : avgFunc})
+{ result: 'marks_all', ok: 1 }
+testdb2> db.marks_all.find().pretty()
+[
+  {
+    _id: 'total',
+    value: { marks: 721, count: 9, avg: 80.11111111111111 }
+  }
+]
+testdb2> var map = function(){
+...     emit(this.name , {min : this.marks , max: this.marks});
+... };
+
+testdb2> var reduce = function(key , values){
+...     var reducedVal = {min : Infinity , max : -Infinity};
+...
+...     values.forEach(function(value){
+...             if(value.min < reducedVal.min) reducedVal.min = value.min;
+...             if(value.max > reducedVal.max) reducedVal.max = value.max;
+...
+...     });
+...
+...     return reducedVal;
+... };
+
+testdb2> db.marks.mapReduce(map , reduce , {out : "min_max_each"})
+{ result: 'min_max_each', ok: 1 }
+testdb2> db.min_max_each.find().pretty()
+[
+  { _id: 'Midhu', value: { min: 68, max: 98 } },
+  { _id: 'Anish', value: { min: 67, max: 90 } },
+  { _id: 'Akhil', value: { min: 67, max: 89 } }
+]
+testdb2> var map = function () { emit("total", { min: this.marks, max: this.marks }); };
+
+testdb2> db.marks.mapReduce(map , reduce , {out : "min_max_all"})
+{ result: 'min_max_all', ok: 1 }
+testdb2> db.min_max_all.find().pretty()
+[ { _id: 'total', value: { min: 67, max: 98 } } ]
+testdb2>

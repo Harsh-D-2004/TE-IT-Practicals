@@ -1,0 +1,29 @@
+
+//Total marks each student
+var map = function(){
+	emit(this.name , this.marks);
+};
+
+var reduce = function(key , values){
+	return Array.sum(values);
+};
+
+var map = function(){
+	emit(this.name , {marks : this.marks , count : 1});
+};
+
+
+//Average marks each student
+var reduce = function(key , values){
+	var reducedVal = {marks : 0 , count : 0};
+	values.forEach(function(value){
+		reducedVal.marks += value.marks;
+		reducedVal.count += value.count;
+	});
+	return reducedVal
+};
+
+var avgFunc = function(key , reducedVal){
+	reducedVal.avg = reducedVal.marks / reducedVal.count;
+	return reducedVal;
+};
