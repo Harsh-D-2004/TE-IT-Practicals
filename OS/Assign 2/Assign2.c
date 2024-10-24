@@ -89,10 +89,10 @@ int main(int argc, char* argv[]) {
         printf("Parent PID of parent process is: %i\n", getppid());
         printf("------------------------------------------------------------------- \n");
         
-        //wait(&status);
-        //if (WIFEXITED(status)) {
-            //printf("Child process exited with status: %d\n", WEXITSTATUS(status));
-        //}
+        // wait(&status);
+        // if (WIFEXITED(status)) {
+        //     printf("Child process exited with status: %d\n", WEXITSTATUS(status));
+        // }
         
         InsertionSort(Brr, Size);
         

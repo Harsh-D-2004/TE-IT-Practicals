@@ -117,7 +117,6 @@ int main()
 		printf("%d \t %d \t %d \t %d \t %d \t %d \t %d \t\n", ps[i].pid, ps[i].at, ps[i].bt, ps[i].ct, ps[i].tt, ps[i].wt, ps[i].rt);
 	}
 	printf("\n\n====================================================================================\n");
-
 	printf("\n\n AVG WT: %f", avgWT / n);
 	printf("\n\n AVG TT: %f", avgTT / n);
 	printf("\n\n AVG RT: %f", avgRT / n);
