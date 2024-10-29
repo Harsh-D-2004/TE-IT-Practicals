@@ -1,4 +1,3 @@
-
 FILE_NAME=""
 
 filename(){
@@ -8,12 +7,8 @@ filename(){
 
 }
 
-
-
 fileExists(){
-
-	if [ ! -e $FILE_NAME ]; then
-
+	if [ -e $FILE_NAME ]; then
 		return 0
 	else
 		return 1
@@ -27,7 +22,6 @@ createAddressBook(){
 	fi
 	echo "| Name | Address | Phone |" > $FILE_NAME
 }
-
 
 viewAddressBook(){
 	
@@ -122,7 +116,6 @@ searchRecord(){
 		echo "Address Book does not exists"
 	fi
 }
-
 
 main(){
 
