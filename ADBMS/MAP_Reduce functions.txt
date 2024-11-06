@@ -1,29 +1,61 @@
+//Total marks of each student
+var map = function(){emit(this.name , this.marks);};
 
-//Total marks each student
-var map = function(){
-	emit(this.name , this.marks);
-};
-
-var reduce = function(key , values){
-	return Array.sum(values);
-};
-
-var map = function(){
-	emit(this.name , {marks : this.marks , count : 1});
-};
+var reduce = function(key , value){return Array.sum(values);};
 
 
-//Average marks each student
+//Total marks for all students
+var map = function(){emit("total" , this.marks);};
+
+var reduce = function(key , value){return Array.sum(values);};
+
+//Average marks for each students
+var map = function(){emit(this.name , {marks : this.marks , count : 1});};
+
 var reduce = function(key , values){
 	var reducedVal = {marks : 0 , count : 0};
+
 	values.forEach(function(value){
-		reducedVal.marks += value.marks;
+		reducedVal.marks += value.marks;	
 		reducedVal.count += value.count;
 	});
-	return reducedVal
+	
+	return reducedVal;
+
 };
 
-var avgFunc = function(key , reducedVal){
-	reducedVal.avg = reducedVal.marks / reducedVal.count;
-	return reducedVal;
+var avgfunc = function(key , reducedVal){
+	reducedVal.avg = reducedVal.marks/reducedVal.count;
+	return reducedVal	
 };
+
+//Averge marks for all students
+var map = function(){emit("total" , {marks : this.marks , count : 1});};
+
+//Min Max each student
+var map = fuction(){emit(this.name , {min : this.marks , max:this.marks});};
+
+var reduce = function(key , values){
+	var reducedVal = {min : Infinity , max : -Infinity};
+
+	values.forEach(function(value){
+		if(value.min < reducedVal.min) reducedVal.min = value.min;
+		if(value.max > reducedVal.max) reducedVal.max = value.max;
+	});	
+
+	return reducedVal; 
+};
+
+//Min Max total student
+var map = fuction(){emit("total" , {min : this.marks , max:this.marks});};
+
+
+
+db.collection.mapReduce(
+    map,              // Map function
+    reduce,           // Reduce function
+    {
+        out: { inline: 1 or "name" },  // Output option; inline returns results directly
+        finalize: avgfunc    // Finalize function to calculate the average
+    }
+);
