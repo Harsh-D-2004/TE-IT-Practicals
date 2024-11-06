@@ -17,7 +17,6 @@ int find_min_index(int req_queue[] , int visited[] , int head_pos , int n){
 	return index;
 }
 
-
 void sstf(int req_queue[] , int visited[] , int head_pos , int n){
 	
 	int min_index = 0;

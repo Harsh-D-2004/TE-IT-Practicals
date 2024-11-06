@@ -119,7 +119,6 @@ testdb2> db.customer.find({custId : "A123"}).explain("executionStats")
 Drop the index created.
 ////////////////////////////////////////////////////////////////////////////////////
 
-
 testdb2> db.customer.dropIndex({custId : 1})
 { nIndexesWas: 2, ok: 1 }
 testdb2> db.customer.getIndexes()

@@ -174,3 +174,28 @@ Find the average total amount of each customer whose Status is A.
 testdb2> db.customer.aggregate([{$match : {status : 'A'}} , {$group : {_id : "$custId" , avgAmount : {"$avg" : "$Amount"}}}])
 [ { _id: 'A123', avgAmount: 375 }, { _id: 'B212', avgAmount: 200 } ]
 testdb2>
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+SYNTAX
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+db.orders.aggregate([
+
+   { $match: { totalAmount: { $gt: 100 } } },
+
+   { $group: { _id: "$customerId", totalSpent: { $sum: "$totalAmount" } } },
+
+   { $sort: { totalSpent: -1 } },
+
+   { $limit: 5 },
+
+   {
+      $project: {
+         _id: 0,
+         customerId: "$_id",
+         totalSpent: 1,
+         "customerDetails.name": 1,
+         "customerDetails.email": 1
+      }
+   }
+])
