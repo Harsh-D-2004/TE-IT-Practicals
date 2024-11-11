@@ -69,9 +69,6 @@ int main(int argc, char* argv[]) {
         printf("PID of child process is: %i\n", getpid());
         printf("Parent PID of child process is: %i\n", getppid());
         printf("------------------------------------------------------------------- \n");
-        printf("Orphan Process created\n");
-        printf("Zombie Process created\n");
-        printf("------------------------------------------------------------------- \n");
         
         BubbleSort(Arr, Size);
         
@@ -81,6 +78,8 @@ int main(int argc, char* argv[]) {
         }
         
         printf("Child Process exited\n");
+        
+        exit(0);
     }
     else if (pid > 0) {
     	printf("------------------------------------------------------------------- \n");
@@ -89,10 +88,7 @@ int main(int argc, char* argv[]) {
         printf("Parent PID of parent process is: %i\n", getppid());
         printf("------------------------------------------------------------------- \n");
         
-        // wait(&status);
-        // if (WIFEXITED(status)) {
-        //     printf("Child process exited with status: %d\n", WEXITSTATUS(status));
-        // }
+        //sleep(10);
         
         InsertionSort(Brr, Size);
         
@@ -101,7 +97,11 @@ int main(int argc, char* argv[]) {
             printf("%d\n", Brr[i]);
         }
         
+        //printf("child process is zombie process");
+        
         printf("Parent process exited\n");
+        
+        //wait(&status);
         
         exit(0);
     }
