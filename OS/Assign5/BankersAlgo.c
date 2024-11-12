@@ -65,7 +65,7 @@ void resourceRequest(int n, int m, int avail[], int max[][10], int alloc[][10], 
     for (int i = 0; i < m; i++) scanf("%d", &request[i]);
 
     for (int i = 0; i < m; i++) {
-        if (request[i] > need[p][i]) {
+        if (request[i] > max[p][i]) {
             printf("Error: Process has exceeded its maximum claim.\n");
             return;
         }
@@ -121,6 +121,12 @@ int main() {
     printf("Enter the Available resources:\n");
     for (int i = 0; i < m; i++) {
         scanf("%d", &avail[i]);
+    }
+    
+    for (int j = 0; j < m; j++) {
+        for (int i = 0; i < n; i++) {
+            avail[j] -= alloc[i][j];
+        }
     }
 
     calculateNeed(need, max, alloc, n, m);
