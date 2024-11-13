@@ -25,7 +25,7 @@ createAddressBook(){
 
 viewAddressBook(){
 	
-	if ! fileExists; then
+	if  fileExists; then
 	
 		if [ -s $FILE_NAME ]; then
 		
@@ -40,7 +40,7 @@ viewAddressBook(){
 
 insertRecord(){
 
-	if ! fileExists; then
+	if  fileExists; then
 	
 		read -p "Enter Name : " name 
 		read -p "Enter Address : " address
@@ -56,11 +56,11 @@ insertRecord(){
 
 updateRecord(){
 	
-	if ! fileExists; then
+	if  fileExists; then
 	
 		read -p "Enter Name : " name
 		
-		if [ -z "$(grep -i "$name" AddBook.txt)" ]; then
+		if [ -z "$(grep -i "$name" $FILE_NAME )" ]; then
 			
 			echo "$name not found"
 			return
@@ -79,7 +79,7 @@ updateRecord(){
 
 deleteRecord(){
 	
-	if ! fileExists; then
+	if  fileExists; then
 	
 		read -p "Enter Name : " name
 		
@@ -99,7 +99,7 @@ deleteRecord(){
 
 searchRecord(){
 	
-	if ! fileExists; then
+	if  fileExists; then
 		
 		read -p "Enter Name : " name
 		
@@ -179,9 +179,3 @@ main(){
 
 
 main
-
-
-
-
-
-

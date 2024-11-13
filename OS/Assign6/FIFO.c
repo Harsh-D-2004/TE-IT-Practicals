@@ -56,8 +56,3 @@ int main() {
     fifo(string, frameSize, count);
     return 0;
 }
-
-
-
-
-
