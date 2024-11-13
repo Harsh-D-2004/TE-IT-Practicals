@@ -37,8 +37,6 @@ int main()
 	}
 	printf("\n\n====================================================================================\n\n");
 
-	// Input Done
-
 	int n = size;
 	int completed = 0;
 	int currentTime = 0;
