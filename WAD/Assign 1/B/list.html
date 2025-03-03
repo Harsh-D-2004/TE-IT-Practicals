@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <link rel="stylesheet" href="list-styles.css">
+</head>
+<body>
+
+    <h2>Registered Users</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody id="userTable"></tbody>
+    </table>
+
+    <script>
+        // Fetch user data from local storage
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        // Populate table
+        let tableBody = document.getElementById("userTable");
+        users.forEach(user => {
+            let row = `<tr>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.password}</td>
+                       </tr>`;
+            tableBody.innerHTML += row;
+        });
+    </script>
+
+</body>
+</html>
