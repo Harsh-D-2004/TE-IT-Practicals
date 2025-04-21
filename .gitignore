@@ -2,3 +2,4 @@ WAD/**/node_modules/
 WAD/**/.env
 WAD/**/.vscode/
 WAD/**/.DS_Store
+DSBDA/**/env
