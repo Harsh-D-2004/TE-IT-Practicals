@@ -1,0 +1,280 @@
+hive> show tables;
+OK
+airline_info
+flight
+flight_info
+nflight
+Time taken: 0.035 seconds, Fetched: 4 row(s)
+hive> select * from airline_info;
+OK
+1	sahara airlines
+1	Air India
+2	Air India
+Time taken: 0.123 seconds, Fetched: 3 row(s)
+hive> select * from flight_info;
+OK
+1	Pune	Delhi	NULL
+2	Sambhajinar	Pune	NULL
+3	Mumbai	Pune	8000.0
+4	Mumbai	Delhi	15000.0
+Time taken: 0.092 seconds, Fetched: 4 row(s)
+hive> 
+    > ;
+hive> select f.source, f.destination, a.airline_name, f.price from flight_info f JOIN airline_info a ON (f.flight_id = a.flight_id); 
+Query ID = cloudera_20250421020707_a238282d-023a-4ded-a30a-49b514c9dcc5
+Total jobs = 1
+Execution log at: /tmp/cloudera/cloudera_20250421020707_a238282d-023a-4ded-a30a-49b514c9dcc5.log
+2025-04-21 02:07:38	Starting to launch local task to process map join;	maximum memory = 1013645312
+2025-04-21 02:07:39	Dump the side-table for tag: 1 with group count: 2 into file: file:/tmp/cloudera/f2511875-23c8-481c-8b66-3dd29617d0f4/hive_2025-04-21_02-07-32_720_6886957587357133400-1/-local-10003/HashTable-Stage-3/MapJoin-mapfile01--.hashtable
+2025-04-21 02:07:39	Uploaded 1 File to: file:/tmp/cloudera/f2511875-23c8-481c-8b66-3dd29617d0f4/hive_2025-04-21_02-07-32_720_6886957587357133400-1/-local-10003/HashTable-Stage-3/MapJoin-mapfile01--.hashtable (339 bytes)
+2025-04-21 02:07:39	End of local task; Time Taken: 1.48 sec.
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there's no reduce operator
+Starting Job = job_1745222802363_0012, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1745222802363_0012/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1745222802363_0012
+Hadoop job information for Stage-3: number of mappers: 1; number of reducers: 0
+2025-04-21 02:07:51,115 Stage-3 map = 0%,  reduce = 0%
+2025-04-21 02:07:59,014 Stage-3 map = 100%,  reduce = 0%, Cumulative CPU 1.45 sec
+MapReduce Total cumulative CPU time: 1 seconds 450 msec
+Ended Job = job_1745222802363_0012
+MapReduce Jobs Launched: 
+Stage-Stage-3: Map: 1   Cumulative CPU: 1.45 sec   HDFS Read: 6845 HDFS Write: 84 SUCCESS
+Total MapReduce CPU Time Spent: 1 seconds 450 msec
+OK
+Pune	Delhi	sahara airlines	NULL
+Pune	Delhi	Air India	NULL
+Sambhajinar	Pune	Air India	NULL
+Time taken: 28.463 seconds, Fetched: 3 row(s)
+
+
+hive> create table flight (year INT,
+    >    month INT,
+    >    day INT,
+    >    day_of_week INT,
+    >    dep_time INT,
+    >    crs_dep_time INT,
+    >    arr_time INT,
+    >    crs_arr_time INT,
+    >    unique_carrier STRING,
+    >    flight_num INT,
+    >    tail_num STRING,
+    >    actual_elapsed_time INT,
+    >    crs_elapsed_time INT,
+    >    air_time INT,
+    >    arr_delay INT,
+    >    dep_delay INT,
+    >    origin STRING,
+    >    dest STRING,
+    >    distance INT,
+    >    taxi_in INT,
+    >    taxi_out INT,
+    >    cancelled INT,
+    >    cancellation_code STRING,
+    >    diverted INT,
+    >    carrier_delay STRING,
+    >    weather_delay STRING,
+    >    nas_delay STRING,
+    >    security_delay STRING,
+    >    late_aircraft_delay STRING);
+OK
+Time taken: 0.642 seconds
+hive> describe flight;
+OK
+year                	int                 	                    
+month               	int                 	                    
+day                 	int                 	                    
+day_of_week         	int                 	                    
+dep_time            	int                 	                    
+crs_dep_time        	int                 	                    
+arr_time            	int                 	                    
+crs_arr_time        	int                 	                    
+unique_carrier      	string              	                    
+flight_num          	int                 	                    
+tail_num            	string              	                    
+actual_elapsed_time 	int                 	                    
+crs_elapsed_time    	int                 	                    
+air_time            	int                 	                    
+arr_delay           	int                 	                    
+dep_delay           	int                 	                    
+origin              	string              	                    
+dest                	string              	                    
+distance            	int                 	                    
+taxi_in             	int                 	                    
+taxi_out            	int                 	                    
+cancelled           	int                 	                    
+cancellation_code   	string              	                    
+diverted            	int                 	                    
+carrier_delay       	string              	                    
+weather_delay       	string              	                    
+nas_delay           	string              	                    
+security_delay      	string              	                    
+late_aircraft_delay 	string              	                    
+Time taken: 0.276 seconds, Fetched: 29 row(s)
+hive> drop table flight;
+OK
+Time taken: 0.549 seconds
+hive> create table flight (year INT,
+    >    month INT,
+    >    day INT,
+    >    day_of_week INT,
+    >    dep_time INT,
+    >    crs_dep_time INT,
+    >    arr_time INT,
+    >    crs_arr_time INT,
+    >    unique_carrier STRING,
+    >    flight_num INT,
+    >    tail_num STRING,
+    >    actual_elapsed_time INT,
+    >    crs_elapsed_time INT,
+    >    air_time INT,
+    >    arr_delay INT,
+    >    dep_delay INT,
+    >    origin STRING,
+    >    dest STRING,
+    >    distance INT,
+    >    taxi_in INT,
+    >    taxi_out INT,
+    >    cancelled INT,
+    >    cancellation_code STRING,
+    >    diverted INT,
+    >    carrier_delay STRING,
+    >    weather_delay STRING,
+    >    nas_delay STRING,
+    >    security_delay STRING,
+    >    late_aircraft_delay STRING) row format delimited fields terminated by ',';
+OK
+Time taken: 0.097 seconds
+hive> describe flight;
+OK
+year                	int                 	                    
+month               	int                 	                    
+day                 	int                 	                    
+day_of_week         	int                 	                    
+dep_time            	int                 	                    
+crs_dep_time        	int                 	                    
+arr_time            	int                 	                    
+crs_arr_time        	int                 	                    
+unique_carrier      	string              	                    
+flight_num          	int                 	                    
+tail_num            	string              	                    
+actual_elapsed_time 	int                 	                    
+crs_elapsed_time    	int                 	                    
+air_time            	int                 	                    
+arr_delay           	int                 	                    
+dep_delay           	int                 	                    
+origin              	string              	                    
+dest                	string              	                    
+distance            	int                 	                    
+taxi_in             	int                 	                    
+taxi_out            	int                 	                    
+cancelled           	int                 	                    
+cancellation_code   	string              	                    
+diverted            	int                 	                    
+carrier_delay       	string              	                    
+weather_delay       	string              	                    
+nas_delay           	string              	                    
+security_delay      	string              	                    
+late_aircraft_delay 	string              	                    
+Time taken: 0.104 seconds, Fetched: 29 row(s)
+hive> load data local INPATH '/home/cloudera/flight_info.csv' overwrite into table flight;
+Loading data to table default.flight
+Table default.flight stats: [numFiles=1, numRows=0, totalSize=25113900, rawDataSize=0]
+OK
+Time taken: 1.055 seconds
+hive> select * from flight limit 10;
+OK
+2008	1	3	4	2003	1955	2211	2225	WN	335	N712SW	128	150	116	-14	8	IAD	TPA	810	4	8	00	NA	NA	NA	NA	NA
+2008	1	3	4	754	735	1002	1000	WN	3231	N772SW	128	145	113	2	19	IAD	TPA	810	5	10	00	NA	NA	NA	NA	NA
+2008	1	3	4	628	620	804	750	WN	448	N428WN	96	90	76	14	8	IND	BWI	515	3	17	00	NA	NA	NA	NA	NA
+2008	1	3	4	926	930	1054	1100	WN	1746	N612SW	88	90	78	-6	-4	IND	BWI	515	3	7	00	NA	NA	NA	NA	NA
+2008	1	3	4	1829	1755	1959	1925	WN	3920	N464WN	90	90	77	34	34	IND	BWI	515	3	10	00	2	0	0	0	32
+2008	1	3	4	1940	1915	2121	2110	WN	378	N726SW	101	115	87	11	25	IND	JAX	688	4	10	00	NA	NA	NA	NA	NA
+2008	1	3	4	1937	1830	2037	1940	WN	509	N763SW	240	250	230	57	67	IND	LAS	1591	3	7	00	10	0	0	0	47
+2008	1	3	4	1039	1040	1132	1150	WN	535	N428WN	233	250	219	-18	-1	IND	LAS	1591	7	7	00	NA	NA	NA	NA	NA
+2008	1	3	4	617	615	652	650	WN	11	N689SW	95	95	70	2	2	IND	MCI	451	6	19	00	NA	NA	NA	NA	NA
+2008	1	3	4	1620	1620	1639	1655	WN	810	N648SW	79	95	70	-16	0	IND	MCI	451	3	6	00	NA	NA	NA	NA	NA
+Time taken: 0.581 seconds, Fetched: 10 row(s)
+[cloudera@quickstart ~]$ hive
+drop index 
+Logging initialized using configuration in file:/etc/hive/conf.dist/hive-log4j.properties
+WARNING: Hive CLI is deprecated and migration to Beeline is recommended.
+hive> drop index idx_delay on flight_table_2 ;
+OK
+Time taken: 5.579 seconds
+hive> create index flight_index on table flight_table_2(flight_num) as 'compact' with deferred rebuild ;
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.DDLTask. java.lang.RuntimeException: Check the index columns, they should appear in the table being indexed.
+hive> create index flight_index on table flight_table_2(dep_delay) as 'compact' with deferred rebuild ;
+OK
+Time taken: 1.374 seconds
+hive> drop index flight_index on flight_table_2 ;
+OK
+Time taken: 0.88 seconds
+hive> create index flight_index on table flight_table_2(unique_carrier) as 'compact' with deferred rebuild ;
+OK
+Time taken: 1.117 seconds
+hive> select avg(dep_delay) as avg_departure_delay from flight_table_2 ;
+Query ID = cloudera_20250424222121_d7f9dcdb-80eb-4080-b17f-d47e71fe2d83
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1745555995047_0002, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1745555995047_0002/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1745555995047_0002
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2025-04-24 22:21:58,947 Stage-1 map = 0%,  reduce = 0%
+2025-04-24 22:22:19,063 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.5 sec
+2025-04-24 22:22:39,868 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 3.5 sec
+MapReduce Total cumulative CPU time: 3 seconds 500 msec
+Ended Job = job_1745555995047_0002
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 6.22 sec   HDFS Read: 25124401 HDFS Write: 19 SUCCESS
+Total MapReduce CPU Time Spent: 6 seconds 220 msec
+OK
+13.104479405790656
+Time taken: 77.595 seconds, Fetched: 1 row(s)
+hive> select unique_carrier , avg(dep_delay) as avg_departure_delay from flights group by unique_carrier ;
+FAILED: SemanticException [Error 10001]: Line 1:67 Table not found 'flights'
+hive> select unique_carrier , avg(dep_delay) as avg_departure_delay from flight_table_2 group by unique_carrier ;
+Query ID = cloudera_20250424222424_a3bfc111-dfe1-4139-941e-2068b6535fc0
+Total jobs = 1
+Launching Job 1 out of 1
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+Starting Job = job_1745555995047_0003, Tracking URL = http://quickstart.cloudera:8088/proxy/application_1745555995047_0003/
+Kill Command = /usr/lib/hadoop/bin/hadoop job  -kill job_1745555995047_0003
+Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
+2025-04-24 22:24:45,191 Stage-1 map = 0%,  reduce = 0%
+2025-04-24 22:25:06,137 Stage-1 map = 100%,  reduce = 0%, Cumulative CPU 3.51 sec
+2025-04-24 22:25:25,653 Stage-1 map = 100%,  reduce = 100%, Cumulative CPU 6.53 sec
+MapReduce Total cumulative CPU time: 6 seconds 530 msec
+Ended Job = job_1745555995047_0003
+MapReduce Jobs Launched: 
+Stage-Stage-1: Map: 1  Reduce: 1   Cumulative CPU: 6.53 sec   HDFS Read: 25124753 HDFS Write: 158 SUCCESS
+Total MapReduce CPU Time Spent: 6 seconds 530 msec
+OK
+NULL	NULL
+OH	7.799873918276119
+OO	15.641121736882916
+UA	20.797701463948556
+US	8.696999031945788
+WN	10.524500419454064
+XE	10.553301407633144
+YV	14.358042565513248
+Time taken: 74.267 seconds, Fetched: 8 row(s)
+hive> [cloudera@quickstart ~]$ 
+
+
+
+
