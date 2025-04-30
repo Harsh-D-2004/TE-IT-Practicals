@@ -54,11 +54,6 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 public class WordCountDriver {
 
     public static void main(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
-       
-        if (args.length != 2) {
-            System.err.println("Usage: WordCountDriver <input path> <output path>");
-            System.exit(-1);
-        }
 
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf, "Word Count");

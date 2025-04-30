@@ -8,7 +8,6 @@ model = joblib.load('sentiment_model.pkl')
 vectorizer = joblib.load('vectorizer.pkl')
 
 nltk.download('stopwords')
-nltk.download('wordnet')
 stop_words = set(stopwords.words('english'))
 
 def clean_text(text):
