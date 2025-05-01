@@ -273,8 +273,4 @@ WN	10.524500419454064
 XE	10.553301407633144
 YV	14.358042565513248
 Time taken: 74.267 seconds, Fetched: 8 row(s)
-hive> [cloudera@quickstart ~]$ 
-
-
-
-
+hive> [cloudera@quickstart ~]$

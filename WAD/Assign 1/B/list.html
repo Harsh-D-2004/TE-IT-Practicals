@@ -21,10 +21,9 @@
     </table>
 
     <script>
-        // Fetch user data from local storage
+
         let users = JSON.parse(localStorage.getItem("users")) || [];
 
-        // Populate table
         let tableBody = document.getElementById("userTable");
         users.forEach(user => {
             let row = `<tr>
