@@ -1,0 +1,41 @@
+hdfs dfs -h
+
+hdfs dfs -mkdir /harsh
+
+hdfs dfs -put first.txt /harsh
+
+hdfs dfs -cat /harsh/second.txt
+
+hdfs dfs -appendToFile second.txt /harsh/first.txt
+
+hdfs dfs -get /harsh/second.txt
+
+hdfs dfs -copyFromLocal third.txt /harsh
+
+hdfs dfs -ls /harsh
+
+hdfs dfs -copyToLocal /harsh/third.txt
+
+hdfs dfs -rm /harsh/first.txt
+
+hdfs dfs -moveFromLocal first.txt /harsh
+
+hdfs dfs -chmod 777 /harsh/second.txt
+
+hdfs dfs -head /harsh/second.txt
+
+hdfs dfs -tail /harsh/second.txt
+
+hdfs dfs -touch /harsh/fourth.txt
+
+hdfs dfs -touchz /harsh/fifth.txt
+
+hdfs dfs -count /harsh
+
+hdfs dfs -stat /harsh/first.txt
+
+hdfs dfs -chown hadoop:hadoop /harsh/first.txt
+
+hdfs dfs -mv /harsh/first.txt /test11
+
+hdfs dfs -cp /harsh/second.txt /test11
