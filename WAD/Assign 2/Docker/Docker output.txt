@@ -1,0 +1,57 @@
+harsh@DESKTOP-593P7HM:/mnt/d/TE-IT-Practicals/WAD/Assign 2/docker-test$ docker build -t docker-test .
+failed to fetch metadata: fork/exec /usr/local/lib/docker/cli-plugins/docker-buildx: no such file or directory
+
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon  2.048kB
+Step 1/4 : FROM python:3.10-slim
+3.10-slim: Pulling from library/python
+8a628cdd7ccc: Pull complete
+61b6831db81e: Pull complete
+fb07ac4c1971: Pull complete
+054530756765: Pull complete
+Digest: sha256:4ea43f29b66b24db2a82dfc1a8b93c00ed1893fdb6991b9373e2fd54b4705e9a
+Status: Downloaded newer image for python:3.10-slim
+ ---> 89b51a6b7440
+Step 2/4 : WORKDIR /app
+ ---> Running in fd8d33e0ad64
+ ---> Removed intermediate container fd8d33e0ad64
+ ---> e51c63ff3771
+Step 3/4 : RUN echo "Blank software built"
+ ---> Running in df3d7a1ae6a2
+Blank software built
+ ---> Removed intermediate container df3d7a1ae6a2
+ ---> b75c409488e7
+Step 4/4 : CMD ["bash"]
+ ---> Running in 1ae93a885653
+ ---> Removed intermediate container 1ae93a885653
+ ---> 153dc7f88bbd
+Successfully built 153dc7f88bbd
+Successfully tagged docker-test:latest
+harsh@DESKTOP-593P7HM:/mnt/d/TE-IT-Practicals/WAD/Assign 2/docker-test$ docker images
+REPOSITORY                 TAG         IMAGE ID       CREATED          SIZE
+docker-test                latest      153dc7f88bbd   15 seconds ago   127MB
+care_local                 latest      fbda8afcf197   2 weeks ago      1.16GB
+localstack/localstack      latest      771d38162022   2 weeks ago      1.19GB
+postgres                   alpine      0150e3200277   5 weeks ago      278MB
+python                     3.10-slim   89b51a6b7440   4 months ago     127MB
+redis/redis-stack-server   6.2.6-v10   e102d76c0adf   16 months ago    340MB
+harsh@DESKTOP-593P7HM:/mnt/d/TE-IT-Practicals/WAD/Assign 2/docker-test$ docker run -it docker-test
+root@2b114316a992:/app# 
+
+harsh@DESKTOP-593P7HM:/mnt/d/TE-IT-Practicals/WAD/Assign 2/docker-test$ docker ps -a
+CONTAINER ID   IMAGE                                COMMAND                  CREATED              STATUS                            PORTS                                                                                  NAMES
+07710ff9c049   docker-test                          "bash"                   About a minute ago   Exited (130) About a minute ago                             
+                                                             unruffled_keller
+2b114316a992   docker-test                          "bash"                   5 minutes ago        Exited (0) 2 minutes ago                                    
+                                                             zealous_proskuriakova
+32bcccd8a273   care_local                           "bash scripts/start-…"   2 weeks ago          Up 8 minutes (healthy)            0.0.0.0:9000->9000/tcp, :::9000->9000/tcp, 0.0.0.0:9876->9876/tcp, :::9876->9876/tcp   care-backend-1
+eb0f5a886727   care_local                           "bash scripts/celery…"   2 weeks ago          Up 8 minutes (healthy)                                      
+                                                             care-celery-1
+9b82b0928887   localstack/localstack:latest         "docker-entrypoint.sh"   2 weeks ago          Up 8 minutes (healthy)            4510-4559/tcp, 5678/tcp, 0.0.0.0:4566->4566/tcp, :::4566->4566/tcp                     care-localstack-1
+9b2f51d44e5a   postgres:alpine                      "docker-entrypoint.s…"   2 weeks ago          Up 8 minutes                      0.0.0.0:5433->5432/tcp, [::]:5433->5432/tcp                                            care-db-1
+2a935fae79a0   redis/redis-stack-server:6.2.6-v10   "/entrypoint.sh"         2 weeks ago          Up 8 minutes                      0.0.0.0:6380->6379/tcp, [::]:6380->6379/tcp                                            care-redis-1
+harsh@DESKTOP-593P7HM:/mnt/d/TE-IT-Practicals/WAD/Assign 2/docker-test$ docker start -ai 2b114316a992
+root@2b114316a992:/app# 
