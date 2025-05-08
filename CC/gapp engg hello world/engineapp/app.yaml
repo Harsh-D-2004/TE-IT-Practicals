@@ -1,6 +1,6 @@
 application: engineapp
 version: 1
-runtime: python27
+runtime: python39
 api_version: 1
 threadsafe: yes
 
